@@ -1,0 +1,45 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(uuid()) @map("_id")
+  email         String       @unique
+  name          String?
+  password      String?
+  role          String       @default("STUDENT") // Using string for sqlite
+  submissions   Submission[]
+  assignments   Assignment[]
+}
+
+model Assignment {
+  id           String       @id @default(uuid()) @map("_id")
+  title        String
+  description  String
+  deadline     DateTime
+  difficulty   String       // Using string for sqlite
+  instructorId String
+  instructor   User         @relation(fields: [instructorId], references: [id])
+  submissions  Submission[]
+  createdAt    DateTime     @default(now())
+}
+
+model Submission {
+  id           String           @id @default(uuid()) @map("_id")
+  studentId    String
+  student      User             @relation(fields: [studentId], references: [id])
+  assignmentId String
+  assignment   Assignment       @relation(fields: [assignmentId], references: [id])
+  url          String
+  notes        String?
+  status       String           @default("PENDING") // Using string for sqlite
+  feedback     String?
+  aiRefinement String?
+  submittedAt  DateTime         @default(now())
+}

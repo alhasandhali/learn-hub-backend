@@ -61,7 +61,12 @@ npx prisma db push
 npm run dev
 ```
 
----
+## 🌐 Production Deployment
+The backend is deployed on Vercel:
+- **Production URL**: `https://backend-lgaubxjpd-al-hasan-dhalis-projects.vercel.app`
+- **Health Check**: `/health`
+
+*Note: The `vercel.json` file handles the serverless function routing for Express.*
 
 ## 📂 Project Structure
 

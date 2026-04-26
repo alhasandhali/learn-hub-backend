@@ -4,3 +4,5 @@ dist/
 *.log
 .prisma/
 package-lock.json
+
+.vercel
